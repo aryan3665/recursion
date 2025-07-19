@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+using namespace std;
+void print(int number,int n){
+    if(number==n+1)return ;
+    
+    cout<<number<<endl;
+    print(number+1,n);
+    
+}
+
+int main() {
+	// your code goes here
+	
+	int n;
+	cin>>n;
+	print(1,n);
+
+}
