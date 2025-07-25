@@ -1,0 +1,64 @@
+✅ Version 1: Simple countdown recursion
+
+void fun(int n)
+{
+    // Base case: if n is 1, print 1 and stop recursion
+    if (n == 1)
+    {
+        cout << 1 << endl;
+        return;
+    }
+
+    // Print current value of n
+    cout << n << endl;
+
+    // Recursive call with n - 1
+    fun(n - 1);
+}
+🔍 Explanation:
+This function prints numbers from n down to 1 (one per line).
+
+It uses tail recursion, where the recursive call is the last operation in the function.
+
+Base case ensures that recursion stops when n == 1.
+
+✅ Version 2: Even number countdown only
+
+void fun(int n)
+{
+    // Base case: if n < 2, do nothing
+    if (n < 2)
+        return;
+
+    // Base case: if n == 2, print 2 and stop
+    if (n == 2)
+    {
+        cout << 2 << endl;
+        return;
+    }
+
+    // If n is even, print it and recurse by decreasing n by 2
+    if (n % 2 == 0)
+    {
+        cout << n << endl;
+        fun(n - 2);
+    }
+    else
+    {
+        // If n is odd, skip it by calling fun(n - 1)
+        fun(n - 1);
+    }
+}
+🔍 Explanation:
+This function prints only even numbers from n down to 2.
+
+If n is even, it prints and recurses with n - 2.
+
+If n is odd, it skips the odd number and calls fun(n - 1) to reach the next even.
+
+Stops at 2 (prints it), and if n < 2, does nothing.
+
+📌 Summary:
+Version	What it does	Example Input fun(5)	Output
+1	Print all from n to 1	5	          5 4 3 2 1
+2	Print only even numbers ≥ 2	  5     	4 2
