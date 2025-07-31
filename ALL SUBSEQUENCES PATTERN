@@ -1,0 +1,103 @@
+**Print All Subsequences and Those With Sum K (With Logic and Time Complexity)**
+
+---
+
+### 1. Print All Subsequences
+
+#### **Logic:**
+
+Use **recursion** to include or exclude each element. At every index, you have 2 choices:
+
+* Include the element
+* Exclude the element
+
+So total subsequences = $2^n$ for array of size `n`.
+
+#### **Code:**
+
+```cpp
+void printAllSubsequences(int index, vector<int>& arr, vector<int>& temp) {
+    if (index == arr.size()) {
+        for (int num : temp)
+            cout << num << " ";
+        cout << endl;
+        return;
+    }
+
+    // Include current element
+    temp.push_back(arr[index]);
+    printAllSubsequences(index + 1, arr, temp);
+
+    // Exclude current element
+    temp.pop_back();
+    printAllSubsequences(index + 1, arr, temp);
+}
+```
+
+#### **Time Complexity:**
+
+* $O(2^n)$ subsequences
+* Each subsequence takes up to $O(n)$ to print
+* Total: {O(n X 2^n)}
+
+---
+
+### 2. Print All Subsequences With Sum K
+
+#### **Logic:**
+
+Same as above, but maintain a running sum. Only print subsequence when sum == K.
+
+#### **Code:**
+
+```cpp
+void printSubsequencesWithSumK(int index, vector<int>& arr, vector<int>& temp, int sum, int k) {
+    if (index == arr.size()) {
+        if (sum == k) {
+            for (int num : temp)
+                cout << num << " ";
+            cout << endl;
+        }
+        return;
+    }
+
+    // Include current element
+    temp.push_back(arr[index]);
+    printSubsequencesWithSumK(index + 1, arr, temp, sum + arr[index], k);
+
+    // Exclude current element
+    temp.pop_back();
+    printSubsequencesWithSumK(index + 1, arr, temp, sum, k);
+}
+```
+
+#### **Time Complexity:**
+
+* Still $O(2^n)$ recursion calls
+* Only print when sum matches, so slightly fewer prints
+* Overall: $O(n \cdot 2^n)$ in worst case
+
+---
+
+### 3. Count Subsequences With Sum K
+
+#### **Logic:**
+
+Same as above, but count the number instead of printing.
+
+#### **Code:**
+
+```cpp
+int countSubsequencesWithSumK(int index, vector<int>& arr, int sum, int k) {
+    if (index == arr.size()) {
+        return (sum == k) ? 1 : 0;
+    }
+
+    // Include
+    int left = countSubsequencesWithSumK(index + 1, arr, sum + arr[index], k);
+
+    // Exclude
+    int right = countSubsequencesWithSumK(index + 1, arr, sum, k);
+
+    return left + right;
+```
